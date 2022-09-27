@@ -9,9 +9,15 @@ if ! ( which doxygen &> /dev/null ); then
     test_end 1
 fi
 
-grep 'TODO' "${TEST_DIR}/../README.md" && test_end 0
-# If the grep above found any TODOs, the test case fails.
+# If the grep below finds any TODOs, the test case fails.
+grep 'TODO' "${TEST_DIR}/../README.md" && test_end 1
 
+
+# If we get this far, the README has everything filled out.
+
+
+# Doxygen will look for javadoc-style documentation above each function, struct,
+# etc.
 doxygen "${TEST_DIR}/../Doxyfile" 2>&1 \
     | grep -v 'display.h' \
     | grep -v 'display.c' \
